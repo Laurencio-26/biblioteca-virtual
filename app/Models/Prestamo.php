@@ -11,13 +11,18 @@ class Prestamo extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'usuario_id',
-        'libro_id',
-        'fecha_prestamo',
-        'fecha_devolucion',
-        'estado', // 👈 Añadir este campo
-    ];
+   protected $fillable = [
+    'usuario_id',
+    'libro_id',
+    'fecha_prestamo',
+    'fecha_devolucion',
+    'estado',
+    'grado',
+    'seccion',
+    'turno',
+    'institucion',
+];
+
 
     // Relación con el modelo User (usuario)
     public function usuario()

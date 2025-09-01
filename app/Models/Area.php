@@ -2,16 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Categoria extends Model
+class Area extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre'];
+    protected $fillable = [
+        'codigo',
+        'nombre',
+    ];
 
-    // Si tienes relación con libros:
+    // Relación: un área tiene muchos libros
     public function libros()
     {
         return $this->hasMany(Libro::class);

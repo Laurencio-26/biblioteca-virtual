@@ -1,35 +1,52 @@
+{{-- resources/views/libros/show.blade.php --}}
 @extends('layouts.app')
 
-@section('title', 'Detalles del Libro')
+@section('title', 'Detalle del Libro')
 
 @section('content')
-<div class="container mt-4">
-    <h2 class="mb-4">📖 Detalles del Libro</h2>
+<div class="container py-4">
+    <h3 class="mb-3">📘 {{ $libro->titulo }}</h3>
 
-    <a href="{{ route('libros.index') }}" class="btn btn-secondary mb-4">← Volver al listado</a>
+    <div class="bg-white p-4 shadow-sm rounded">
+        <dl class="row">
+            <dt class="col-sm-3">Autor</dt>
+            <dd class="col-sm-9">{{ $libro->autor }}</dd>
 
-    <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">{{ $libro->titulo }}</h5>
-        </div>
-        <div class="card-body">
-            <p><strong>Código:</strong> {{ $libro->codigo_libro }}</p>
-            <p><strong>Autor:</strong> {{ $libro->autor }}</p>
-            <p><strong>Editorial:</strong> {{ $libro->editorial ?? '—' }}</p>
-            <p><strong>Categoría:</strong> {{ $libro->categoria->nombre ?? 'Sin categoría' }}</p>
-            <p><strong>Estado:</strong> 
-                @switch($libro->estado)
-                    @case('disponible') <span class="badge bg-success">Disponible</span> @break
-                    @case('prestado') <span class="badge bg-warning text-dark">Prestado</span> @break
-                    @case('dañado') <span class="badge bg-danger">Dañado</span> @break
-                    @default <span class="badge bg-secondary">Desconocido</span>
-                @endswitch
-            </p>
-            <p><strong>Ubicación:</strong> {{ $libro->ubicacion ?? '—' }}</p>
-            <p><strong>Observaciones:</strong><br>
-                {{ $libro->observaciones ?? '—' }}
-            </p>
-        </div>
+            <dt class="col-sm-3">Código</dt>
+            <dd class="col-sm-9">{{ $libro->codigo_libro }}</dd>
+
+            <dt class="col-sm-3">Editorial</dt>
+            <dd class="col-sm-9">{{ $libro->editorial ?? 'N/A' }}</dd>
+
+            <dt class="col-sm-3">Año</dt>
+            <dd class="col-sm-9">{{ $libro->anio ?? 'N/A' }}</dd>
+
+            <dt class="col-sm-3">Grado</dt>
+            <dd class="col-sm-9">{{ $libro->grado ?? 'N/A' }}</dd>
+
+            <dt class="col-sm-3">Categoría</dt>
+            <dd class="col-sm-9">{{ $libro->categoria->nombre ?? 'Sin categoría' }}</dd>
+
+            <dt class="col-sm-3">Área</dt>
+            <dd class="col-sm-9">{{ $libro->area->nombre ?? 'Sin área' }}</dd>
+
+            <dt class="col-sm-3">Estado</dt>
+            <dd class="col-sm-9">
+                <span class="badge 
+                    @if($libro->estado == 'disponible') bg-success 
+                    @elseif($libro->estado == 'prestado') bg-warning text-dark 
+                    @elseif($libro->estado == 'dañado') bg-danger 
+                    @else bg-secondary @endif">
+                    {{ ucfirst($libro->estado) }}
+                </span>
+            </dd>
+
+            <dt class="col-sm-3">Ubicación</dt>
+            <dd class="col-sm-9">{{ $libro->ubicacion ?? 'N/A' }}</dd>
+
+            <dt class="col-sm-3">Observaciones</dt>
+            <dd class="col-sm-9">{{ $libro->observaciones ?? 'N/A' }}</dd>
+        </dl>
     </div>
 </div>
 @endsection

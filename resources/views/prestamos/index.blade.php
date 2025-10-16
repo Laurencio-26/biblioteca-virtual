@@ -13,6 +13,10 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
         </div>
     @endif
+    <a href="{{ route('reportes.prestamos.pdf') }}" class="btn btn-danger mb-3">
+    Exportar a PDF
+</a>
+
 
     {{-- Botón para crear nuevo préstamo --}}
     <a href="{{ route('prestamos.create') }}" class="btn btn-primary mb-3">

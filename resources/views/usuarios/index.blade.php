@@ -6,9 +6,15 @@
 <div class="container mt-4">
     <h2 class="mb-4 text-primary">👤 Gestión de Usuarios</h2>
 
-    <div class="d-flex justify-content-end mb-3">
-        <a href="{{ route('usuarios.create') }}" class="btn btn-success">➕ Nuevo Usuario</a>
-    </div>
+    <div class="d-flex justify-content-start mb-3">
+    <a href="{{ route('reportes.usuarios.pdf') }}" class="btn btn-danger me-2" target="_blank">
+        📄 Reportar PDF
+    </a>
+    <a href="{{ route('usuarios.create') }}" class="btn btn-success">
+        ➕ Nuevo Usuario
+    </a>
+</div>
+
 
     <div class="card shadow-sm">
         <div class="card-body table-responsive">

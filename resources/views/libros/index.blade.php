@@ -4,6 +4,8 @@
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h2>📚 Áreas de Libros</h2>
     <a href="{{ route('libros.create') }}" class="btn btn-success">➕ Agregar Libro</a>
+</a>
+
 </div>
 
 <div class="container">

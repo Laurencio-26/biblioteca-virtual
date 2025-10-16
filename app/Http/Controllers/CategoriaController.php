@@ -3,52 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Area;
+use App\Models\Libro;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
     public function index()
     {
-        $categorias = Categoria::all();
-        return view('categorias.index', compact('categorias'));
-    }
+        // Clasificación por áreas
+        $areas = Area::orderBy('nombre', 'asc')->get();
 
-    public function create()
-    { 
-        return view('categorias.create');
-    }
+        // Clasificación por categorías/temas
+       $categorias = Categoria::orderBy('nombre_categoria', 'asc')->get();
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required|string|max:255|unique:categorias,nombre',
-        ]);
 
-        Categoria::create($request->all());
+        // Autores distintos
+        $autores = Libro::select('autor')
+            ->distinct()
+            ->orderBy('autor', 'asc')
+            ->get();
 
-        return redirect()->route('categorias.index')->with('success', 'Categoría registrada correctamente.');
-    }
+        // Ingresos recientes (últimos 10)
+        $recientes = Libro::latest()->take(10)->get();
 
-    public function edit(Categoria $categoria)
-    {
-        return view('categorias.edit', compact('categoria'));
-    }
-
-    public function update(Request $request, Categoria $categoria)
-    {
-        $request->validate([
-            'nombre' => 'required|string|max:255|unique:categorias,nombre,' . $categoria->id,
-        ]);
-
-        $categoria->update($request->all());
-
-        return redirect()->route('categorias.index')->with('success', 'Categoría actualizada correctamente.');
-    }
-
-    public function destroy(Categoria $categoria)
-    {
-        $categoria->delete();
-
-        return redirect()->route('categorias.index')->with('success', 'Categoría eliminada correctamente.');
+        return view('categorias.index', compact('areas', 'categorias', 'autores', 'recientes'));
     }
 }

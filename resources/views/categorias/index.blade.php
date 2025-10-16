@@ -1,30 +1,59 @@
 @extends('layouts.app')
 
-@section('title', 'Categorías de Libros')
-
 @section('content')
-<div class="container mt-4">
-    <h2 class="mb-4 text-center">📚 Categorías de Libros</h2>
+<div class="container">
 
-    <div class="row justify-content-center">
-        @foreach ($categorias as $categoria)
-            <div class="col-md-4 col-sm-6 mb-4">
-                <a href="{{ route('categorias.libros', $categoria->id) }}" class="text-decoration-none">
-                    <div class="card shadow-lg border-0 h-100 text-center bg-light hover-zoom">
-                        <div class="card-body d-flex align-items-center justify-content-center" style="height: 100px;">
-                            <h4 class="text-primary m-0">{{ $categoria->nombre }}</h4>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        @endforeach
+    <h2 class="mb-4">📚 Sección de Categorías</h2>
+
+    {{-- Clasificación por Áreas --}}
+    <div class="mb-5">
+        <h4>Áreas</h4>
+        <ul class="list-group">
+            @foreach($areas as $area)
+                <li class="list-group-item">
+                    {{ $area->nombre }} - <small>{{ $area->descripcion }}</small>
+                </li>
+            @endforeach
+        </ul>
     </div>
-</div>
 
-<style>
-    .hover-zoom:hover {
-        transform: scale(1.05);
-        transition: 0.3s ease-in-out;
-    }
-</style>
+    {{-- Clasificación por Categorías/Temas --}}
+    <div class="mb-5">
+        <h4>Categorías / Temas</h4>
+        <ul class="list-group">
+            @foreach($categorias as $categoria)
+                <li class="list-group-item">
+                    {{ $categoria->nombre }} - <small>{{ $categoria->descripcion }}</small>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+
+    {{-- Autores --}}
+    <div class="mb-5">
+        <h4>Autores</h4>
+        <ul class="list-group">
+            @foreach($autores as $autor)
+                <li class="list-group-item">
+                    {{ $autor->autor }}
+                </li>
+            @endforeach
+        </ul>
+    </div>
+
+    {{-- Ingresos recientes --}}
+    <div class="mb-5">
+        <h4>Ingresos recientes</h4>
+        <ul class="list-group">
+            @foreach($recientes as $libro)
+                <li class="list-group-item">
+                    <strong>{{ $libro->titulo }}</strong> - {{ $libro->autor }}
+                    <br>
+                    <small>Registrado: {{ $libro->created_at->format('d/m/Y') }}</small>
+                </li>
+            @endforeach
+        </ul>
+    </div>
+
+</div>
 @endsection
